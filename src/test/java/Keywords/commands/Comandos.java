@@ -16,6 +16,7 @@ public class Comandos {
 		System.setProperty("webdriver.chrome.driver", "E:\\workplace_eclipse\\DesafioWebMotors\\src\\main\\resources\\chromedriver\\chromedriver.exe");
 		driver = new ChromeDriver();
         driver.get(url);
-
 	}
+	
+	
 }
