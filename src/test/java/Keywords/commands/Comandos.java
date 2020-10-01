@@ -37,8 +37,17 @@ public class Comandos{
 	protected static String url ="https://www.webmotors.com.br/";
 	protected static List<Map<String, String>> issue_info;
 	private static WebDriver driver;
+	protected static List<WebElement> listOfElements;
 
 
+	
+	
+	public static void abrirPaginaBuscaFeita(DataTable data) {
+		acessaHomePage(data);
+		clicarOkCookies();
+		preencheCampoBuscar();
+		
+	}
 	
 	
 	public static void acessaHomePage(DataTable data){		
@@ -58,7 +67,35 @@ public class Comandos{
 	}
 	
 	
+	public static void clicarTodosModelos() {
+		String todosModelos = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/div[2]/div[2]";
+		clicar(todosModelos);
+	}
 	
+	
+	
+	public static void listarElementos(String xpath,String tag,String modelo) {
+
+		WebElement Table = driver.findElement(By.xpath(xpath));
+		List<WebElement> rows_table = Table.findElements(By.tagName(tag));
+		for(int i=0;i<rows_table.size();i++) {
+			if(rows_table.get(i).equals(modelo));
+			rows_table.get(i).click();
+			break;
+			
+		}
+	}
+	
+	
+	public static void selecionaModelo() {
+		String modelo = issue_info.get(0).get("MODELO");
+		String listaModelo = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[3]/div/div[5]";
+		//WebDriverWait wait = new WebDriverWait(driver,30);
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(buscar)));
+		//clicar(buscar);
+		listarElementos(listaModelo,"a",modelo);
+		
+	}
 	
 	public static void preencheCampoBuscar() {
 		String marca = issue_info.get(0).get("MARCA");
@@ -84,15 +121,23 @@ public class Comandos{
 		}catch(Exception e){
 			System.out.println("Busca da marca"+nomeMarca+"não validada com sucesso");
 		}
-			
-
-
-
+				
 		
-
-		
-		
-		
+	}
+	
+	public static void validarModelo() {
+		String nomeModelo = issue_info.get(0).get("MODELO");
+		String xpathNome = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/div[2]/div[2]";
+		String xpathValida = driver.findElement(By.xpath(xpathNome)).getText();
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathNome)));
+			Assert.assertEquals(nomeModelo, xpathValida);
+			System.out.println("Busca da marca "+nomeModelo+" validada com sucesso");
+		}catch(Exception e){
+			System.out.println("Busca da marca"+nomeModelo+"não validada com sucesso");
+		}
+				
 		
 	}
 	

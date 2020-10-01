@@ -3,6 +3,7 @@ package Steps;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import cucumber.api.java.en.And;
 
 
@@ -19,7 +20,7 @@ public class MarcaSteps {
 		 
 	    }
 	 
-	 @And("clico no 'Ok' para cookies")
+	 @When("clico no 'Ok' para cookies")
 	    public void clicaOkCookies(){
 		 Keywords.commands.Comandos.clicarOkCookies();
 		 
@@ -32,11 +33,14 @@ public class MarcaSteps {
 	     
 
 	   
-	 @Then("finalizo a aplicacao")
+	 @And("finalizo a aplicacao")
 	    public void finalizar(){
 		 Keywords.commands.Comandos.finalizar();
 		 
-	    }	                                                         
+	    }	 
+	 
+	 
+	 
                                                  
 
 }

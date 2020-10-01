@@ -4,8 +4,10 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/java/Features/Marca.feature",
-glue = "")
+@CucumberOptions(
+features = "src/test/java/Features/Marca.feature",
+glue = "",
+tags = "@modelo_busca")
 
 public class MarcaTest {
 	
