@@ -96,8 +96,7 @@ public class Comandos{
 		for(int i=0;i<rows_table.size();i++) {
 			if(rows_table.get(i).equals(modelo));
 			rows_table.get(i).click();
-			break;
-			
+			break;		
 		}
 	}
 	
@@ -150,8 +149,8 @@ public class Comandos{
 		String xpathNome = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/div[2]/div[2]";
 		String xpathValida = driver.findElement(By.xpath(xpathNome)).getText();
 		try {
-			WebDriverWait wait = new WebDriverWait(driver,30);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathNome)));
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
 			Assert.assertEquals(nomeModelo, xpathValida);
 			System.out.println("Busca do modelo "+nomeModelo+" validada com sucesso");
 		}catch(Exception e){
@@ -163,11 +162,11 @@ public class Comandos{
 	
 	public static void validarVersao() {
 		String nomeVersao = issue_info.get(0).get("VERSAO");
-		String xpathNome = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[1]/div[2]/div[2]/div/form/div[2]/div[2]/div[2]/div[3]";
+		String xpathNome = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[2]/div/div[4]/a[1]";
 		String xpathValida = driver.findElement(By.xpath(xpathNome)).getText();
+		xpathValida = xpathValida.replace("Á","A");
 		try {
-			WebDriverWait wait = new WebDriverWait(driver,30);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathNome)));
+			
 			Assert.assertEquals(nomeVersao, xpathValida);
 			System.out.println("Busca da versao "+nomeVersao+" validada com sucesso");
 		}catch(Exception e){
