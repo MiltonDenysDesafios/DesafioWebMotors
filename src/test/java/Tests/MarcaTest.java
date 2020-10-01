@@ -5,7 +5,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/java/Features/Marca.feature",
-glue = {""},monochrome = true,dryRun=false)
+glue = "")
 
 public class MarcaTest {
 	
