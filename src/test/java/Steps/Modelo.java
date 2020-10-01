@@ -24,7 +24,7 @@ public class Modelo {
 		 Keywords.commands.Comandos.selecionaModelo();
 	    }
 	 
-	 @Then("valido o retorno de modelo foi correto")
+	 @Then("valido o retorno se modelo foi correto")
 	    public void validaModelo() {
 		 Keywords.commands.Comandos.validarModelo();
 	    }

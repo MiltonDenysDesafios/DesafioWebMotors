@@ -42,6 +42,14 @@ public class Comandos{
 
 	
 	
+	public static void abrirPaginaBuscaVersao(DataTable data) {
+		abrirPaginaBuscaFeita(data);
+		clicarTodosModelos();
+		selecionaModelo();
+		
+	}
+	
+	
 	public static void abrirPaginaBuscaFeita(DataTable data) {
 		acessaHomePage(data);
 		clicarOkCookies();
@@ -72,6 +80,13 @@ public class Comandos{
 		clicar(todosModelos);
 	}
 	
+	public static void clicarTodosVersoes() {
+		String todasVersoes = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/div[2]/div[3]";
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(todasVersoes)));
+		clicar(todasVersoes);
+	}
+	
 	
 	
 	public static void listarElementos(String xpath,String tag,String modelo) {
@@ -90,10 +105,15 @@ public class Comandos{
 	public static void selecionaModelo() {
 		String modelo = issue_info.get(0).get("MODELO");
 		String listaModelo = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[3]/div/div[5]";
-		//WebDriverWait wait = new WebDriverWait(driver,30);
-		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(buscar)));
-		//clicar(buscar);
 		listarElementos(listaModelo,"a",modelo);
+		
+	}
+	public static void selecionaVersao() {
+		String versao = issue_info.get(0).get("VERSAO");
+		String listaVersao = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[2]/div/div[4]";
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(listaVersao)));
+		listarElementos(listaVersao,"a",versao);
 		
 	}
 	
@@ -133,14 +153,29 @@ public class Comandos{
 			WebDriverWait wait = new WebDriverWait(driver,30);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathNome)));
 			Assert.assertEquals(nomeModelo, xpathValida);
-			System.out.println("Busca da marca "+nomeModelo+" validada com sucesso");
+			System.out.println("Busca do modelo "+nomeModelo+" validada com sucesso");
 		}catch(Exception e){
-			System.out.println("Busca da marca"+nomeModelo+"não validada com sucesso");
+			System.out.println("Busca do modelo"+nomeModelo+"não validada com sucesso");
 		}
 				
 		
 	}
 	
+	public static void validarVersao() {
+		String nomeVersao = issue_info.get(0).get("VERSAO");
+		String xpathNome = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[1]/div[2]/div[2]/div/form/div[2]/div[2]/div[2]/div[3]";
+		String xpathValida = driver.findElement(By.xpath(xpathNome)).getText();
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,30);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathNome)));
+			Assert.assertEquals(nomeVersao, xpathValida);
+			System.out.println("Busca da versao "+nomeVersao+" validada com sucesso");
+		}catch(Exception e){
+			System.out.println("Busca da versao"+nomeVersao+"não validada com sucesso");
+		}
+				
+		
+	}
 	
 	public static void selecionaPrimeiraOpcaoDropDown(String xpath, String marca) {
 		preencher(xpath,marca);

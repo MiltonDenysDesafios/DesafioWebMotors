@@ -19,7 +19,18 @@ Feature: Marca
    |CHEVROLET	|AGILE	|
    When clico na opcao 'Todos os modelos'
    And seleciono o modelo
-   Then valido o retorno de modelo foi correto 
+   Then valido o retorno se modelo foi correto 
+   And finalizo a aplicacao
+   
+   
+   	@versao_busca
+  Scenario: Busca Versao
+   Given que ja pesquisei pela modelo no campo de busca
+   |MARCA				|MODELO	|VERSAO															|
+   |VOLKSWAGEN	|GOLF		|1.6 MI SPORTLINE 8V FLEX 4P MANUAL	|
+   When clico na opcao 'Todas as Versoes'
+   And seleciono a versao
+   Then valido o retorno da versao se foi correto 
    And finalizo a aplicacao
    
    

@@ -7,7 +7,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 features = "src/test/java/Features/Marca.feature",
 glue = "",
-tags = "@modelo_busca")
+tags = "@versao_busca")
 
 public class MarcaTest {
 	
