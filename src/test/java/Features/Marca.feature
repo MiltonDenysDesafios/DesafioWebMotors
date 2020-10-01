@@ -6,6 +6,7 @@ Feature: Marca
    |MARCA	|
    |FIAT	|
     And clico no 'Ok' para cookies
-    And preencho o campo buscar                                                        
-  	#Then finalizo a aplicacao
+    And preencho o campo buscar 
+    Then valido se a busca foi correta
+  	Then finalizo a aplicacao
 

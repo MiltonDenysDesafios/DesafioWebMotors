@@ -24,11 +24,19 @@ public class MarcaSteps {
 		 Keywords.commands.Comandos.clicarOkCookies();
 		 
 	    }
+	 
+	 @Then("valido se a busca foi correta")
+	    public void validarBuscarMarca(){
+		 Keywords.commands.Comandos.validarBusca();
+	    }
+	     
+
 	   
 	 @Then("finalizo a aplicacao")
 	    public void finalizar(){
 		 Keywords.commands.Comandos.finalizar();
 		 
 	    }	                                                         
+                                                 
 
 }

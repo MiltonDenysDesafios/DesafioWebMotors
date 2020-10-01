@@ -5,16 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertTrue;
+
 import java.lang.Object;
 import javax.xml.datatype.Duration;
+
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cucumber.api.DataTable;
@@ -53,15 +63,64 @@ public class Comandos{
 	public static void preencheCampoBuscar() {
 		String marca = issue_info.get(0).get("MARCA");
 		String buscar = "//*[@id=\"searchBar\"]";
-		preencher(buscar,marca);
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(buscar)));
+		clicar(buscar);
+		selecionaPrimeiraOpcaoDropDown(buscar,marca);
 		
+	}
+	
+	
+		
+	
+	
+	public static void validarBusca() {
+		String nomeMarca = issue_info.get(0).get("MARCA");
+		String xpathNome = "//*[@id=\"root\"]/main/div[1]/div[2]/div/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/div[2]/div[1]";
+		String xpathValida = driver.findElement(By.xpath(xpathNome)).getText();
+		try {
+			Assert.assertEquals(xpathValida, nomeMarca);
+			System.out.println("Busca da marca "+nomeMarca+" validada com sucesso");
+		}catch(Exception e){
+			System.out.println("Busca da marca"+nomeMarca+"não validada com sucesso");
+		}
+			
+
+
+
+		
+
+		
+		
+		
+		
+	}
+	
+	
+	public static void selecionaPrimeiraOpcaoDropDown(String xpath, String marca) {
+		preencher(xpath,marca);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+		String multiSelect = Keys.chord(Keys.DOWN,Keys.ENTER);
+		
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"WhiteBox\"]/div[1]/div[2]/div/div/div/div/div/div[1]/a/div[2]")));
+		
+		driver.findElement(By.xpath(xpath)).sendKeys(multiSelect);
+			
 	}
 	
 	
 	public static void finalizar() {
-		
-		driver.quit();
+		try{
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.quit();
+
+		}catch(Exception e) {
+			
+		}
 	}
+	
 	
 	public static void preencher(String xpath,String value){
 		
@@ -75,6 +134,8 @@ public class Comandos{
 	public static void clicarOkCookies() {
 		
 		String cookies = "//*[@id='root']/div[3]/div[2]/button";
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(cookies)));
 		clicar(cookies);
 	}
 	
@@ -82,10 +143,7 @@ public class Comandos{
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement Element = driver.findElement(By.xpath(xpath));
 		Element.click();
-		//driver.findElement(By.xpath(xpath)).click();
-		
-
-		//WebElement Element = findElement(By.xpath(xpath));
+	
 
 	}
 	
